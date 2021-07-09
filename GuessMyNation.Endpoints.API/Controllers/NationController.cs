@@ -1,14 +1,11 @@
 ﻿using GuessMyNation.Core.ApplicationServices.Nations;
 using GuessMyNation.Core.Domain.Nation;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GuessMyNation.Endpoints.API.Controllers
 {
-   
+
     [ApiController]
     [Route("[controller]")]
     public class NationController : ControllerBase

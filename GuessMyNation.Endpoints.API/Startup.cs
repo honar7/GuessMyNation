@@ -1,10 +1,16 @@
+using GuessMyNation.Core.ApplicationServices.GameHeaders;
 using GuessMyNation.Core.ApplicationServices.NationItems;
 using GuessMyNation.Core.ApplicationServices.Nations;
+using GuessMyNation.Core.ApplicationServices.Players;
+using GuessMyNation.Core.Domain.Game;
 using GuessMyNation.Core.Domain.Nation;
 using GuessMyNation.Core.Domain.NationItems;
+using GuessMyNation.Core.Domain.Player;
 using GuessMyNation.Infra.Data.Sql.Common;
+using GuessMyNation.Infra.Data.Sql.GameHeaders;
 using GuessMyNation.Infra.Data.Sql.NationItems;
 using GuessMyNation.Infra.Data.Sql.Nations;
+using GuessMyNation.Infra.Data.Sql.Players;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +49,11 @@ namespace GuessMyNation.Endpoints.API
             services.AddScoped<NationItemRepository, EfNationItemRepository>();
             services.AddScoped<NationItemApplicationService>();
 
+            services.AddScoped<GameHeaderRepository, EfGameHeaderRepository>();
+            services.AddScoped<GameHeaderApplicationService>();
 
+            services.AddScoped<PlayerRepository, EfPlayerRepository>();
+            services.AddScoped<PlayerApplicationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,4 @@
-﻿using GuessMyNation.Core.Domain.Blogs;
-using GuessMyNation.Core.Domain.Game;
+﻿using GuessMyNation.Core.Domain.Game;
 using GuessMyNation.Core.Domain.Nation;
 using GuessMyNation.Core.Domain.Player;
 using Microsoft.EntityFrameworkCore;

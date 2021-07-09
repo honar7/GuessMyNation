@@ -22,7 +22,7 @@ namespace GuessMyNation.Infra.Data.Sql.GameHeaders
                 Console.WriteLine("player Not Found: {0}", playerId);
             GameHeader header = new GameHeader();
             header.PlayerId = playerId;
-            header.StartDateTime = new DateTime();
+            header.StartDateTime = DateTime.Now;
             header.TotalScore = 0;
             _GuessMyNationDb.Add(header);
             _GuessMyNationDb.SaveChanges();
