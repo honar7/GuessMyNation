@@ -1,6 +1,9 @@
+using GuessMyNation.Core.ApplicationServices.NationItems;
 using GuessMyNation.Core.ApplicationServices.Nations;
 using GuessMyNation.Core.Domain.Nation;
+using GuessMyNation.Core.Domain.NationItems;
 using GuessMyNation.Infra.Data.Sql.Common;
+using GuessMyNation.Infra.Data.Sql.NationItems;
 using GuessMyNation.Infra.Data.Sql.Nations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +39,11 @@ namespace GuessMyNation.Endpoints.API
            
             services.AddScoped<NationRepository, EfNationRepository>();            
             services.AddScoped<NationApplicationService>();
+
+            services.AddScoped<NationItemRepository, EfNationItemRepository>();
+            services.AddScoped<NationItemApplicationService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
