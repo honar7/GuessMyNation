@@ -1,8 +1,8 @@
-﻿using GuessMyNation.Core.Domain.NationItems;
+﻿using GuessMyNation.Core.Domain.Nation;
+using GuessMyNation.Core.Domain.NationItems;
 using System.Collections.Generic;
-using GuessMyNation.Core.Domain.Nation;
 
-namespace GuessMyNation.Core.ApplicationServices.NationItem
+namespace GuessMyNation.Core.ApplicationServices.NationItems
 {
 
     public class NationItemApplicationService
@@ -13,10 +13,10 @@ namespace GuessMyNation.Core.ApplicationServices.NationItem
         {
             _nationItemRepository = nationItemRepository;
         }
-        //public List<NationItem> GetRandomly(int number)        
-        //{
-        //    return _nationItemRepository.GetRandomly(number);
-        //}
 
+        public List<NationItem> GetRandomly(int number)
+        {
+            return _nationItemRepository.GetRandomly(number);
+        }
     }
 }

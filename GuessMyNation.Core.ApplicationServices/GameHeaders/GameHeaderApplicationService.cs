@@ -1,4 +1,5 @@
 ﻿using GuessMyNation.Core.Domain.Game;
+using GuessMyNation.Core.Domain.Nation;
 
 namespace GuessMyNation.Core.ApplicationServices.GameHeaders
 {
