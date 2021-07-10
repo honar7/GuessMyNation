@@ -18,6 +18,7 @@ namespace GuessMyNation.Endpoints.API.Controllers
         }
 
         [HttpGet]
+        [Route("GetButtons")]
         public IEnumerable<Nation> Get()
         {
             return _nationApplicationService.Get();

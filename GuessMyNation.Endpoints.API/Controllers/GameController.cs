@@ -1,8 +1,9 @@
 ﻿using GuessMyNation.Core.ApplicationServices.GameHeaders;
+using GuessMyNation.Core.Domain.Commands;
 using GuessMyNation.Core.Domain.Game;
 using GuessMyNation.Core.Domain.Nation;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using IActionResult = Microsoft.AspNetCore.Mvc.IActionResult;
 
 namespace GuessMyNation.Endpoints.API.Controllers
 {
@@ -19,10 +20,12 @@ namespace GuessMyNation.Endpoints.API.Controllers
 
         [HttpPost]
         [Route("CreateGame")]
-        public IActionResult CreateGame(GameHeader gameHeader, long playerId)
+        public IActionResult CreateGame(CreateGameCommand createGameCommand)
         {
-            _gameHeaderApplicationService.Add(gameHeader, playerId);
-            return Ok();
+            if (createGameCommand.PlayerId == 0)
+               return BadRequest();
+            var gameHeaderId = _gameHeaderApplicationService.CreateGame(createGameCommand);
+            return Ok(gameHeaderId);
         }
         [HttpPost]
         [Route("Answer")]

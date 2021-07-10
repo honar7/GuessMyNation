@@ -1,4 +1,5 @@
-﻿using GuessMyNation.Core.Domain.Game;
+﻿using GuessMyNation.Core.Domain.Commands;
+using GuessMyNation.Core.Domain.Game;
 using GuessMyNation.Core.Domain.Nation;
 
 namespace GuessMyNation.Core.ApplicationServices.GameHeaders
@@ -12,9 +13,9 @@ namespace GuessMyNation.Core.ApplicationServices.GameHeaders
           _gameHeaderRepository = gameHeaderRepository;
         }
 
-        public void Add(GameHeader gameHeader, long playerId)
+        public long CreateGame(CreateGameCommand createGameCommand)
         {
-            _gameHeaderRepository.Add(gameHeader, playerId);
+            return _gameHeaderRepository.CreateGame(createGameCommand);
         }
 
         public void Answer(long gameHeaderId, NationItem nationItem)

@@ -41,7 +41,7 @@ namespace GuessMyNation.Endpoints.API
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://localhost:5001");
+                                      builder.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://localhost:5001", "http://localhost:5000");
                                       builder.AllowAnyOrigin();
                                       builder.AllowAnyHeader();
                                       builder.AllowAnyMethod();                                   
@@ -80,9 +80,11 @@ namespace GuessMyNation.Endpoints.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GuessMyNation.Endpoints.API v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

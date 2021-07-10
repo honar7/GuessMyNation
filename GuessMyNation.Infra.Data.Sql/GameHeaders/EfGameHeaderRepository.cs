@@ -1,4 +1,5 @@
-﻿using GuessMyNation.Core.Domain.Game;
+﻿using GuessMyNation.Core.Domain.Commands;
+using GuessMyNation.Core.Domain.Game;
 using GuessMyNation.Core.Domain.Nation;
 using GuessMyNation.Infra.Data.Sql.Common;
 using System;
@@ -15,17 +16,18 @@ namespace GuessMyNation.Infra.Data.Sql.GameHeaders
             _GuessMyNationDb = GuessMyNationDb;
         }
      
-        public void Add(GameHeader gameHeader,long playerId)
+        public long CreateGame(CreateGameCommand createGameCommand)
         {
-            var player= _GuessMyNationDb.Players.FirstOrDefault(c => c.Id == playerId);
+            var player = _GuessMyNationDb.Players.FirstOrDefault(c => c.Id == createGameCommand.PlayerId);
             if (player == null)
-                Console.WriteLine("player Not Found: {0}", playerId);
+                Console.WriteLine("player Not Found: {0}", createGameCommand.PlayerId);
             GameHeader header = new GameHeader();
-            header.PlayerId = playerId;
+            header.PlayerId = createGameCommand.PlayerId;
             header.StartDateTime = DateTime.Now;
             header.TotalScore = 0;
-            _GuessMyNationDb.Add(header);
-            _GuessMyNationDb.SaveChanges();
+            _GuessMyNationDb.Games.Add(header);
+            _GuessMyNationDb.SaveChanges();                 
+            return header.Id;
         }
 
         private void Exception()

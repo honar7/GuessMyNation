@@ -1,10 +1,11 @@
-﻿using GuessMyNation.Core.Domain.Nation;
+﻿using GuessMyNation.Core.Domain.Commands;
+using GuessMyNation.Core.Domain.Nation;
 
 namespace GuessMyNation.Core.Domain.Game
 {
     public interface GameHeaderRepository
     {
-        void Add(GameHeader gameHeader, long playerId);
+        long CreateGame(CreateGameCommand createGameCommand);
         void Answer(long GameHeaderId, NationItem nationItem);
         int GetTotalScore(long GameHeaderId);
         void FinishGame(long GameHeaderId);
