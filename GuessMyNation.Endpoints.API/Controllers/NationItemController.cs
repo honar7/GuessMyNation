@@ -1,10 +1,7 @@
 ﻿using GuessMyNation.Core.ApplicationServices.NationItems;
 using GuessMyNation.Core.Domain.Nation;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GuessMyNation.Endpoints.API.Controllers
 {
@@ -20,10 +17,18 @@ namespace GuessMyNation.Endpoints.API.Controllers
             _nationItemApplicationService = nationItemApplicationService;
         }        
 
+        //[HttpGet("number")]
+        //[Route("GetRandomly")]
+        //public List<NationItem> GetRandomly(int number)
+        //{
+        //    return _nationItemApplicationService.GetRandomly(number);
+        //}
+
         [HttpGet]
-        public List<NationItem> GetRandomly(int number)
+        [Route("GetFixFiveRandomly")]
+        public List<NationItem> GetFixFiveRandomly()
         {
-            return _nationItemApplicationService.GetRandomly(number);
+            return _nationItemApplicationService.GetFixFiveRandomly();
         }
 
     }

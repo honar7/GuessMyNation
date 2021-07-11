@@ -18,5 +18,10 @@ namespace GuessMyNation.Core.ApplicationServices.NationItems
         {
             return _nationItemRepository.GetRandomly(number);
         }
+
+        public List<NationItem> GetFixFiveRandomly()
+        {
+            return _nationItemRepository.GetRandomly(5);
+        }
     }
 }
