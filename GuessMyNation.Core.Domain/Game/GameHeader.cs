@@ -5,6 +5,10 @@ namespace GuessMyNation.Core.Domain.Game
 {
     public class GameHeader : BaseEntity
     {
+        public GameHeader()
+        {
+            Details = new GameDetail();
+        }
         public long PlayerId { get; set; }
         public DateTime StartDateTime { get; set; } =  DateTime.Now;
         public DateTime? EndDateTime { get; set; }

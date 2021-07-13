@@ -1,7 +1,7 @@
 ﻿using GuessMyNation.Core.Domain.Commands;
 using GuessMyNation.Core.Domain.Game;
-using GuessMyNation.Core.Domain.Nation;
 using GuessMyNation.Infra.Data.Sql.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -28,41 +28,47 @@ namespace GuessMyNation.Infra.Data.Sql.GameHeaders
             _GuessMyNationDb.Games.Add(header);
             _GuessMyNationDb.SaveChanges();                 
             return header.Id;
+        }      
+
+        public void Answer(AnswerCommand  answerCommand)
+        {
+            var header = _GuessMyNationDb.Games.Include(head => head.Details)
+                .FirstOrDefault(c => c.Id == answerCommand.GameHeaderId);         
+           
+              if (answerCommand.NationItemAnswer.NationId.Equals(answerCommand.NationItemAnswer.AnswerCode))
+                  answerCommand.NationItemAnswer.Point = 20;
+              else
+                  answerCommand.NationItemAnswer.Point = -5;
+              var detail = new GameDetail
+                {
+                    GameHeaderId = answerCommand.GameHeaderId  
+                };
+
+            header.Details.AddNationItemAnswer(answerCommand.NationItemAnswer);                     
+            _GuessMyNationDb.SaveChanges();
         }
 
-        private void Exception()
+        public void FinishGame(FinishGameCommand finishGameCommand)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Answer(long GameHeaderId, NationItem nationItem)
-        {
-            var header = _GuessMyNationDb.Games.FirstOrDefault(c => c.Id == GameHeaderId);
-            var detail = new GameDetail();
-            detail.GameHeaderId = GameHeaderId;
-            detail.nationItems.Add(nationItem);
-            if (nationItem.AnswerCode != null)
+            if (finishGameCommand.GameHeaderId > 0)
             {
-                if (nationItem.nation.Equals(nationItem.AnswerCode))
-                    nationItem.Point = 20;
-                else
-                    nationItem.Point = -5;
-
-                header.Details.AddNationItem(nationItem);
-            }            
-            _GuessMyNationDb.SaveChanges();
+                var header = _GuessMyNationDb.Games
+                    .Include(head=> head.Details)
+                    .FirstOrDefault(c => c.Id == finishGameCommand.GameHeaderId);
+                header.EndDateTime = DateTime.Now;
+                if (header.Details!=null)
+                {
+                    header.TotalScore = header.Details.GetScores();
+                }                
+                _GuessMyNationDb.SaveChanges();
+            }
         }
 
-        public void FinishGame(long GameHeaderId)
+        public int GetTotalScore(GameCommand command)
         {
-            var header = _GuessMyNationDb.Games.FirstOrDefault(c => c.Id == GameHeaderId);
-            header.EndDateTime = new DateTime();
-            _GuessMyNationDb.SaveChanges();
-        }
-
-        public int GetTotalScore(long GameHeaderId)
-        {
-            var header = _GuessMyNationDb.Games.FirstOrDefault(c => c.Id == GameHeaderId);
+            var header = _GuessMyNationDb.Games
+                .Include(head => head.Details)
+                .FirstOrDefault(c => c.Id == command.GameHeaderId);
             header.TotalScore = header.Details.GetScores();
             _GuessMyNationDb.SaveChanges();
             return header.TotalScore;            

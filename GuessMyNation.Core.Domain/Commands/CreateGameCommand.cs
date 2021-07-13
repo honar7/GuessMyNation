@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GuessMyNation.Core.Domain.Nation;
 
 namespace GuessMyNation.Core.Domain.Commands
 {
@@ -10,4 +6,19 @@ namespace GuessMyNation.Core.Domain.Commands
     {
         public long PlayerId { get; set; }
     }
+    public class FinishGameCommand
+    {
+        public long GameHeaderId { get; set; }
+    }
+    public class GameCommand
+    {
+        public long GameHeaderId { get; set; }
+    }
+
+    public class AnswerCommand
+    {
+        public long GameHeaderId { get; set; }
+        public NationItemAnswer NationItemAnswer { get; set; }       
+    }
+  
 }

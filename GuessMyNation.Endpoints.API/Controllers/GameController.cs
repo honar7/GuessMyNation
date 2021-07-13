@@ -29,23 +29,23 @@ namespace GuessMyNation.Endpoints.API.Controllers
         }
         [HttpPost]
         [Route("Answer")]
-        public IActionResult Answer(long gameHeaderId, NationItem nationItem)
+        public IActionResult Answer(AnswerCommand answerCommand)
         {
-            _gameHeaderApplicationService.Answer(gameHeaderId, nationItem);
+            _gameHeaderApplicationService.Answer(answerCommand);
             return Ok();
         }
 
         [HttpGet("{gameHeaderId}")]
-        public int GetTotalScore(long gameHeaderId)
+        public int GetTotalScore(GameCommand command)
         {
-            return _gameHeaderApplicationService.GetTotalScore(gameHeaderId);
+            return _gameHeaderApplicationService.GetTotalScore(command);
         }
 
         [HttpPost]
         [Route("FinishGame")]
-        public IActionResult FinishGame(long gameHeaderId)
+        public IActionResult FinishGame(FinishGameCommand finishGameCommand)
         {
-            _gameHeaderApplicationService.FinishGame(gameHeaderId);
+            _gameHeaderApplicationService.FinishGame(finishGameCommand);
             return Ok();
         }
     }

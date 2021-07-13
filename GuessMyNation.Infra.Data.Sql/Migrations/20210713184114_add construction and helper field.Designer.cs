@@ -4,14 +4,16 @@ using GuessMyNation.Infra.Data.Sql.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuessMyNation.Infra.Data.Sql.Migrations
 {
     [DbContext(typeof(GuessMyNationDbContext))]
-    partial class GuessMyNationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210713184114_add construction and helper field")]
+    partial class addconstructionandhelperfield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,6 +93,9 @@ namespace GuessMyNation.Infra.Data.Sql.Migrations
                     b.Property<int?>("AnswerCode")
                         .HasColumnType("int");
 
+                    b.Property<long?>("GameDetailId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("NationId")
                         .HasColumnType("bigint");
 
@@ -102,35 +107,11 @@ namespace GuessMyNation.Infra.Data.Sql.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GameDetailId");
+
                     b.HasIndex("NationId");
 
                     b.ToTable("NationItems");
-                });
-
-            modelBuilder.Entity("GuessMyNation.Core.Domain.Nation.NationItemAnswer", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long?>("AnswerCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("GameDetailId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("NationId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("Point")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameDetailId");
-
-                    b.ToTable("NationItemAnswer");
                 });
 
             modelBuilder.Entity("GuessMyNation.Core.Domain.Player.Player", b =>
@@ -159,6 +140,10 @@ namespace GuessMyNation.Infra.Data.Sql.Migrations
 
             modelBuilder.Entity("GuessMyNation.Core.Domain.Nation.NationItem", b =>
                 {
+                    b.HasOne("GuessMyNation.Core.Domain.Game.GameDetail", null)
+                        .WithMany("NationItems")
+                        .HasForeignKey("GameDetailId");
+
                     b.HasOne("GuessMyNation.Core.Domain.Nation.Nation", "nation")
                         .WithMany()
                         .HasForeignKey("NationId")
@@ -168,16 +153,9 @@ namespace GuessMyNation.Infra.Data.Sql.Migrations
                     b.Navigation("nation");
                 });
 
-            modelBuilder.Entity("GuessMyNation.Core.Domain.Nation.NationItemAnswer", b =>
-                {
-                    b.HasOne("GuessMyNation.Core.Domain.Game.GameDetail", null)
-                        .WithMany("NationItemAnswers")
-                        .HasForeignKey("GameDetailId");
-                });
-
             modelBuilder.Entity("GuessMyNation.Core.Domain.Game.GameDetail", b =>
                 {
-                    b.Navigation("NationItemAnswers");
+                    b.Navigation("NationItems");
                 });
 
             modelBuilder.Entity("GuessMyNation.Core.Domain.Game.GameHeader", b =>

@@ -7,20 +7,24 @@ namespace GuessMyNation.Core.Domain.Game
 {
     public class GameDetail : BaseEntity
     {
+        public GameDetail()
+        {          
+            NationItemAnswers = new HashSet<NationItemAnswer>();
+        }
         public long GameHeaderId { get; set; }
-        public List<NationItem> nationItems { get; set; }
+       
+        public ICollection<NationItemAnswer> NationItemAnswers { get; set; }
+     
 
-        public void AddNationItem(NationItem item)
+        public void AddNationItemAnswer(NationItemAnswer item)
         {
-            nationItems.Add(item);
+            NationItemAnswers.Add(item);
         }
 
         public int GetScores()
         {
-            if (nationItems!= null && nationItems.Count() > 0)
-                nationItems.Sum(node => node.Point);             
-            else
-                return 0;
+            if (NationItemAnswers != null )
+                NationItemAnswers.Sum(node => node.Point);   
             return 0;
         }
     }

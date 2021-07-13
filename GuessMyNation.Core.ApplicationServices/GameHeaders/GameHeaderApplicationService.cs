@@ -18,19 +18,19 @@ namespace GuessMyNation.Core.ApplicationServices.GameHeaders
             return _gameHeaderRepository.CreateGame(createGameCommand);
         }
 
-        public void Answer(long gameHeaderId, NationItem nationItem)
+        public void Answer(AnswerCommand answerCommand)
         {
-            _gameHeaderRepository.Answer(gameHeaderId, nationItem);
+            _gameHeaderRepository.Answer(answerCommand);
         }
-        public int GetTotalScore(long gameHeaderId)
+        public int GetTotalScore(GameCommand command)
         {
-            return _gameHeaderRepository.GetTotalScore(gameHeaderId);
+            return _gameHeaderRepository.GetTotalScore(command);
 
         }
 
-        public void FinishGame(long gameHeaderId)
+        public void FinishGame(FinishGameCommand finishGameCommand)
         {
-            _gameHeaderRepository.FinishGame(gameHeaderId);
+            _gameHeaderRepository.FinishGame(finishGameCommand);
         }
 
     }

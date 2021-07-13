@@ -4,14 +4,16 @@ using GuessMyNation.Infra.Data.Sql.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuessMyNation.Infra.Data.Sql.Migrations
 {
     [DbContext(typeof(GuessMyNationDbContext))]
-    partial class GuessMyNationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210712064449_add path to NationItem")]
+    partial class addpathtoNationItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,46 +93,28 @@ namespace GuessMyNation.Infra.Data.Sql.Migrations
                     b.Property<int?>("AnswerCode")
                         .HasColumnType("int");
 
-                    b.Property<long>("NationId")
+                    b.Property<long?>("GameDetailId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Point")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NationId");
-
-                    b.ToTable("NationItems");
-                });
-
-            modelBuilder.Entity("GuessMyNation.Core.Domain.Nation.NationItemAnswer", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long?>("AnswerCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("GameDetailId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("NationId")
-                        .HasColumnType("bigint");
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("Point")
                         .HasColumnType("int");
+
+                    b.Property<long?>("nationId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GameDetailId");
 
-                    b.ToTable("NationItemAnswer");
+                    b.HasIndex("nationId");
+
+                    b.ToTable("NationItems");
                 });
 
             modelBuilder.Entity("GuessMyNation.Core.Domain.Player.Player", b =>
@@ -159,25 +143,20 @@ namespace GuessMyNation.Infra.Data.Sql.Migrations
 
             modelBuilder.Entity("GuessMyNation.Core.Domain.Nation.NationItem", b =>
                 {
+                    b.HasOne("GuessMyNation.Core.Domain.Game.GameDetail", null)
+                        .WithMany("nationItems")
+                        .HasForeignKey("GameDetailId");
+
                     b.HasOne("GuessMyNation.Core.Domain.Nation.Nation", "nation")
                         .WithMany()
-                        .HasForeignKey("NationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("nationId");
 
                     b.Navigation("nation");
                 });
 
-            modelBuilder.Entity("GuessMyNation.Core.Domain.Nation.NationItemAnswer", b =>
-                {
-                    b.HasOne("GuessMyNation.Core.Domain.Game.GameDetail", null)
-                        .WithMany("NationItemAnswers")
-                        .HasForeignKey("GameDetailId");
-                });
-
             modelBuilder.Entity("GuessMyNation.Core.Domain.Game.GameDetail", b =>
                 {
-                    b.Navigation("NationItemAnswers");
+                    b.Navigation("nationItems");
                 });
 
             modelBuilder.Entity("GuessMyNation.Core.Domain.Game.GameHeader", b =>

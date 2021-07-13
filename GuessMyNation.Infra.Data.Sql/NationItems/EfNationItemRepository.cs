@@ -1,6 +1,8 @@
 ﻿using GuessMyNation.Core.Domain.Nation;
 using GuessMyNation.Core.Domain.NationItems;
 using GuessMyNation.Infra.Data.Sql.Common;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,10 +17,11 @@ namespace GuessMyNation.Infra.Data.Sql.NationItems
             _GuessMyNationDb = GuessMyNationDb;
         }
 
-        public List<NationItem> GetRandomly(int number)
-        {
+        public List<NationItem> GetRandomly(int number) =>
             //return (List<NationItem>)_GuessMyNationDb.NationItems.ToList().OrderBy(r => r.Id).Take(number);
-            return _GuessMyNationDb.NationItems.ToList().OrderBy(node => node.Id).Take(number).ToList();
-        }
+            _GuessMyNationDb.NationItems
+                 .Include(b => b.nation)
+                 .Where(x => x.Path != null && x.AnswerCode == null)
+                 .ToList().OrderBy(r => Guid.NewGuid()).Take(number).ToList();
     }
 }

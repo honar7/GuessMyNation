@@ -17,7 +17,7 @@ namespace GuessMyNation.Infra.Data.Sql.Common
         public DbSet<NationItem> NationItems { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {            
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
