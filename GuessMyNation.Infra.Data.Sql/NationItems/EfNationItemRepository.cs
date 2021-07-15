@@ -18,7 +18,6 @@ namespace GuessMyNation.Infra.Data.Sql.NationItems
         }
 
         public List<NationItem> GetRandomly(int number) =>
-            //return (List<NationItem>)_GuessMyNationDb.NationItems.ToList().OrderBy(r => r.Id).Take(number);
             _GuessMyNationDb.NationItems
                  .Include(b => b.nation)
                  .Where(x => x.Path != null && x.AnswerCode == null)

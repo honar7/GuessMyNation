@@ -25,6 +25,12 @@ namespace GuessMyNation.Core.Domain.Nation
         public long NationId { get; set; }      
         public long AnswerCode { get; set; }
         public int? Point { get; set; }
+
+        //public int GetPointOtherForm()
+        //{
+        //    return NationId.Equals(AnswerCode) ? 20 : -5;
+        //}
+
     }
 
 }

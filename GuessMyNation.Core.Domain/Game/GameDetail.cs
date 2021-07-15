@@ -24,7 +24,7 @@ namespace GuessMyNation.Core.Domain.Game
         public int GetScores()
         {
             if (NationItemAnswers != null )
-                NationItemAnswers.Sum(node => node.Point);   
+                return (int)NationItemAnswers.Sum(node => node.Point);
             return 0;
         }
     }

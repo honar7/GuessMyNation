@@ -54,6 +54,7 @@ namespace GuessMyNation.Infra.Data.Sql.GameHeaders
             {
                 var header = _GuessMyNationDb.Games
                     .Include(head=> head.Details)
+                    .ThenInclude(detail=>detail.NationItemAnswers)
                     .FirstOrDefault(c => c.Id == finishGameCommand.GameHeaderId);
                 header.EndDateTime = DateTime.Now;
                 if (header.Details!=null)

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Golrang.Framework\Golrang.Framework.csproj" />
+    <ProjectReference Include="..\Golrang.Framework\Kourosh.Framework.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuessMyNation.Core.Domain",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00. Framework", "00. Framework", "{05EF0A12-4755-4B43-8A9F-006E4B438130}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Golrang.Framework", "Golrang.Framework\Golrang.Framework.csproj", "{450501D3-9F0C-4E88-85C6-B13B298D0421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kourosh.Framework", "Golrang.Framework\Kourosh.Framework.csproj", "{450501D3-9F0C-4E88-85C6-B13B298D0421}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuessMyNation.Core.ApplicationServices", "GuessMyNation.Core.ApplicationServices\GuessMyNation.Core.ApplicationServices.csproj", "{B349EBAB-8E36-41A5-83AD-D00E6724366D}"
 EndProject
